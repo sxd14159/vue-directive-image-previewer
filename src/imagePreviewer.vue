@@ -9,7 +9,7 @@
     </div>
       <!--图片主体-->
     <div class="vue-directive-image-previewer-body" ref="body">
-      <img ref="picture" class="vue-directive-image-previewer-img" :style="imgStyle" :src="src[0]" @click="close"/>
+      <img ref="picture" class="vue-directive-image-previewer-img" :style="imgStyle" :src="srcUrl" @click="close"/>
     </div>
   </div>
 </template>
@@ -67,7 +67,8 @@
         // 图片样式
         imgStyle: {},
         key: `image-previewer-${new Date().valueOf()}`,
-        status: '' // 'opening', 'opened', 'closing', 'closed'
+        status: '', // 'opening', 'opened', 'closing', 'closed',
+        srcUrl: ''
       }
     },
     methods: {
@@ -166,6 +167,13 @@
       },
       cursor (val) {
         this.imgStyle.cursor = val
+      },
+      src: {
+        handleSrc(newSrc) {
+          this.srcUrl = newSrc[0]
+        },
+        immediate: true,
+        deep: true
       }
     },
     created () {
